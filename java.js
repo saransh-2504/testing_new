@@ -649,7 +649,7 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             renderNextBatch();
         };
-        document.querySelector("footer").insertAdjacentElement("beforebegin", btn);
+        document.querySelector(".news-container").after(btn);
     }
 
     window.addEventListener("online", () => {
@@ -697,4 +697,5 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 300);
         }
     });
+
 });
