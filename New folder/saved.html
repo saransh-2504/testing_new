@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saved Articles</title>
+  <link href="style.css" rel="stylesheet" />
+</head>
+
+<body>
+
+  <header>
+    <img class="head-img"
+      src="https://media.istockphoto.com/id/1402360271/vector/seamless-pattern-with-a-collage-of-newspaper-or-magazine-clippings.jpg?s=612x612&w=0&k=20&c=GEGdqIvAipMBTeU3XQR6lHMCdonVWa1U13i05iUMrMw=" />
+    <div class="title_fade-in">Saved Articles ❤</div>
+    <div class="logo_saved" onclick="history.back()">🔙</div>
+  </header>
+  <!-- NEWS GRID -->
+  <div class="news-container fade-in" id="savedList">
+  </div>
+  <footer>
+    © 2025 Offline News Reader | Saved Articles
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // APPLY DARK THEME 
+        try {
+          const saved = localStorage.getItem("themeMode");
+          if (saved === "dark") {
+            document.body.classList.add("dark");
+          } else {
+            document.body.classList.remove("dark");
+          }
+        } catch (e) {}
+
+      let container = document.getElementById("savedList");
+
+      let request = indexedDB.open("newsDB", 2);
+
+      request.onsuccess = function (e) {
+        let db = e.target.result;
+
+        let tx = db.transaction("saved", "readonly");
+        let store = tx.objectStore("saved");
+
+        let getAll = store.getAll();
+
+        getAll.onsuccess = function () {
+          let items = getAll.result || [];
+
+          if (!items.length) {
+            container.innerHTML = "<h2>No saved articles yet.</h2>";
+            return;
+          }
+
+          items.forEach(item => {
+            let card = document.createElement("div");
+            card.className = "card";
+
+            card.innerHTML = `
+          <img src="${item.img || 'https://via.placeholder.com/600x400.png?text=No+Image+Available'}"
+          alt="Saved Article Image"
+          onerror="this.onerror=null; this.src='https://via.placeholder.com/600x400.png?text=No+Image+Available';"/>
+
+          <div class="content">
+            <div class="tag">Saved</div>
+            <div class="title-text">${item.title}</div>
+            <div class="desc">${item.desc}</div>
+            <div class="actions">
+              <span class="delete-btn" data-link="${item.link}">🗑 Delete</span>
+              <a href="${item.link}" class="btn" target="_blank">Read More</a>
+            </div>
+          </div> `;
+
+            container.appendChild(card);
+          });
+
+          // DELETE SAVED ARTICLE
+          document.addEventListener("click", (e) => {
+            if (e.target.classList.contains("delete-btn")) {
+              let link = e.target.dataset.link;
+
+              let tx2 = db.transaction("saved", "readwrite");
+              let store2 = tx2.objectStore("saved");
+              store2.delete(link);
+
+              e.target.closest(".card").remove();
+
+              if (!container.children.length) {
+                container.innerHTML = "<h2>No saved articles yet.</h2>";
+              }
+            }
+          });
+        };
+      };
+      request.onerror = function () {
+        container.innerHTML = "<h2>Could not open local DB.</h2>";
+      }
+    });
+  </script>
+
+
+</body>
+</html>
