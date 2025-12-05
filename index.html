@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offline News Reader</title>
+  <link href="style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="offlineBanner" class="offline-banner" style="display:none;">You're offline — showing cached articles</div>
+
+<!-- SIGNUP FORM -->
+  <div id="authOverlay" class="fade">
+    <div class="auth-box fade">
+      <div id="signupBox">
+        <h2>Create Account</h2>
+
+        <input type="text" id="firstName" placeholder="First Name" />
+        <input type="text" id="lastName" placeholder="Last Name" />
+        <input type="email" id="signupEmail" placeholder="Email" />
+        <input type="password" id="signupPassword" placeholder="Password" />
+
+        <button onclick="signup()">Sign Up</button>~
+
+        <p>
+          Already have an account?
+          <span class="link" onclick="showLogin()">Login</span>
+        </p>
+      </div>
+
+<!-- LOGIN FORM -->
+      <div id="loginBox" style="display:none;">
+        <h2>Login</h2>
+
+        <input type="email" id="loginEmail" placeholder="Email" />
+        <input type="password" id="loginPassword" placeholder="Password" />
+
+        <button onclick="login()">Login</button>
+
+        <p>
+          Forgot password?
+          <span class="link" onclick="showForgot()">Reset</span>
+        </p>
+
+        <p>
+          Don't have an account?
+          <span class="link" onclick="showSignup()">Sign Up</span>
+        </p>
+      </div>
+
+<!-- FORGOT PASSWORD -->
+      <div id="forgotBox" style="display:none;">
+        <h2>Reset Password</h2>
+
+        <input type="email" id="forgotEmail" placeholder="Enter your registered email" />
+        <input type="password" id="newPassword" placeholder="New Password" />
+
+        <button onclick="resetPassword()">Reset Password</button>
+
+        <p><span class="link" onclick="showLogin()">Back to Login</span></p>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="siteContent">
+
+<!-- HEADER -->
+    <header>
+      <img class="head-img"
+        src="https://media.istockphoto.com/id/1402360271/vector/seamless-pattern-with-a-collage-of-newspaper-or-magazine-clippings.jpg?s=612x612&w=0&k=20&c=GEGdqIvAipMBTeU3XQR6lHMCdonVWa1U13i05iUMrMw="
+        alt="back" />
+      <div class="header-flex">
+        <div class="logo" id="themeToggle">🌙</div>
+        <div class="title"><u>Newzify Velvet</u></div>
+        <div class="profile-area">
+          <span id="greetUser">WELCOME!</span>
+          <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </header>
+
+<!-- SEARCH BAR -->
+    <div class="search-box">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search news..." />
+    </div>
+
+<!-- CATEGORY SCROLLER -->
+    <div class="categories">
+      <div class="cat" data-category="general">All</div>
+      <div class="cat" data-category="technology">Technology</div>
+      <div class="cat" data-category="sports">Sports</div>
+      <div class="cat" data-category="entertainment">Entertainment</div>
+      <div class="cat" data-category="world">World</div>
+      <a href="saved.html">
+        <div class="cat">Saved ❤️</div>
+      </a>
+    </div>
+
+<!-- NEWS GRID -->
+    <div class="news-container fade-in">
+
+      <div class="card">
+        <img
+          src="https://thumbs.dreamstime.com/b/digital-tablet-news-article-screen-modern-technology-reading-close-up-view-electronic-newspaper-blurred-background-396465572.jpg" />
+        <div class="content">
+          <div class="tag">TECHNOLOGY</div>
+          <div class="title-text">AI Revolution in 2025</div>
+          <div class="desc">Artificial Intelligence is evolving faster than expected...</div>
+          <div class="actions">
+            <span class="save-btn" data-link="#" data-title="AI Revolution" data-img="" data-desc="">❤️ Save</span>
+            <span class="btn">Read More</span>
+          </div>
+        </div>
+      </div>
+
+    <div class="card">
+      <img
+        src="https://res.cloudinary.com/dvklutj2x/images/w_1920,h_1200/fl_progressive,q_auto,f_auto,dpr_auto/f_auto,q_auto:best/v1684999072/Times-Sports_Component-3/Times-Sports_Component-3.gif?_i=AA" />
+      <div class="content">
+        <div class="tag">SPORTS</div>
+        <div class="title-text">World Cup Highlights</div>
+        <div class="desc">The finals were packed with thrilling moments...</div>
+        <div class="actions">
+           <span class="save-btn" data-link="#" data-title="AI Revolution" data-img="" data-desc="">❤️ Save</span>
+          <span class="btn">Read More</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://www.printnewspaper.com/static/resources/newspaper-template/daily-news.jpg" />
+      <div class="content">
+        <div class="tag">ENTERTAINMENT</div>
+        <div class="title-text">Sci-Fi Movie Breaks Records</div>
+        <div class="desc">A spectacular blend of futuristic visuals and story...</div>
+        <div class="actions">
+           <span class="save-btn" data-link="${article.link}" data-title="${safeTitle}" data-img="${safeImg}" data-desc="${safeDesc}">🤍 Save</span>
+          <span class="btn">Read More</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    © 2025 Offline News Reader | OJT Project
+  </footer>
+
+  <!-- loader icon -->
+  <div id="loader" class="loader" style="display:none;"></div>
+
+  </div>
+</body>
+<script src="java.js"></script>
+
+</html>
