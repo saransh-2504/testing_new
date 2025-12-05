@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
             // ---- LOCAL & DEPLOYED API SUPPORT ----
-            const LOCAL_API = "http://localhost:3000/api/news";
+            const LOCAL_API = "https://testing-new-five.vercel.app/api/news";
             const DEPLOYED_API = "/api/news";
 
             // Use correct API depending on where app runs
@@ -699,3 +699,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
