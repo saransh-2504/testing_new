@@ -268,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const DEPLOYED_API = "/api/news";
 
             // Use correct API depending on where app runs
-            const API_ENDPOINT = window.location.hostname === "localhost" ? LOCAL_API : DEPLOYED_API;
+            const API_ENDPOINT = "https://testing-new-five.vercel.app/api/news";
             const backendURL =
                 `${API_ENDPOINT}?q=${encodeURIComponent(searchText || "latest")}` +
                 `&topic=${currentCategory}` +
@@ -699,4 +699,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
 
