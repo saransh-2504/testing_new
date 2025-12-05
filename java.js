@@ -336,6 +336,23 @@ document.addEventListener("DOMContentLoaded", () => {
             loader.style.display = "none";
         }
     }
+
+    async function convertImageToBase64(url) {
+    if (!url) return "";
+    try {
+        const res = await fetch(url);
+        const blob = await res.blob();
+        return await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(blob);
+        });
+    } catch (err) {
+        console.warn("Base64 conversion failed:", err);
+        return "";
+    }
+}
+
     function displayNews(articles) {
         if (!articles || !articles.length) {
             if (!newsContainer.children.length) {
@@ -544,7 +561,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         const url = buildApiURL();
         try {
-            const res = await fetch(url);
+            const apiURL =
+    `https://testing-new-five.vercel.app/api/news?q=${encodeURIComponent(searchText || "latest")}` +
+    `&topic=${currentCategory}` +
+    `&page=${pageIndex}`;
+
+const res = await fetch(apiURL);
             const data = await res.json();
             if (!data.articles || !data.articles.length) {
                 return
@@ -694,6 +716,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
 
 
 
